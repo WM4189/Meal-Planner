@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
             fetch(`https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search?query=${input.value}`, {
             "method": "GET",
             "headers": {
-                "x-rapidapi-key": "00b4c78f40mshe4afe6a2b22f208p1c2a68jsn26478094cc12",
+                "x-rapidapi-key": ,
                 "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com"
             }
             })
