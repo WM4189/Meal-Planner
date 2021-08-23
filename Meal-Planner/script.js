@@ -6,25 +6,33 @@ document.addEventListener("DOMContentLoaded", () => {
             fetch(`https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search?query=${input.value}`, {
             "method": "GET",
             "headers": {
-                "x-rapidapi-key": ,
+                "x-rapidapi-key": "",
                 "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com"
             }
             })
             .then(res => res.json())
-            .then(mealArray => { 
+            .then(object => { 
+                const mealArray = object.results
                 console.log(mealArray)
-                // const createMeals = () => { 
-                //     const li = document.createElement('li')
-                //     const meals = document.getElementById('meals') 
-                //     li.innerText = `${mealArray.whatever the name key is}    `
-                //     meals.appendChild(li)
-                // }
+                mealArray.forEach(mealObject => createMeals(mealObject))
+                debugger
             })
             // .catch(err => {
             //     alert('Invalid Meal Request')
             //     console.error(err)
             // })
-        form.reset()
+            form.reset()
         })
 })
 
+function createMeals (food) { 
+    const li = document.createElement('li')
+    const mealList = document.getElementById('meals') 
+    const img = document.createElement('img')
+    li.innerText = food.title
+    // img.src = food.image
+    // img.alt = food.title
+    mealList.appendChild(li)
+    // li.appendChild(img)
+    // console.log(img)
+}
