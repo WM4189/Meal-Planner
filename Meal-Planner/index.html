@@ -8,23 +8,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="style.css">
   <script defer src="script.js"></script>
-  <title>Meal-Planner</title>
+  <title>Meal-Planner™️</title>
 </head>
 
 <body>
-    <h1>D/W's Meal-Planner</h1>
+    <h1>Meal-Planner</h1>
     
     <form id="create-task-form" action="" method="POST">
-        <label for="new_task_description">What are you in the mood for? </label>
+        <label id='label' for="new_task_description">What are you in the mood for? </label>
         <input type="text" id="new_task_description" name="new_task_description" placeholder="Enter Food Here">
-        <input type="submit" value="Create List">
+        <input type="submit" id="submit" value="Create Meal Options">
       </form>
 
     <div id="mealOptions">
         <h2>Meal Options</h2>
-        <ul id="meals">
+        <ul id="mealO">
         </ul>
     </div>
+
+    <div id="mealPlan">
+      <h2>Meal Plan</h2>
+      <ul id="mealP">
+      </ul>
+  </div>
 
    
     

@@ -1,0 +1,95 @@
+h1{
+    font-weight: bold;
+     margin: auto;
+     background-color: rgb(75, 75, 72);
+    /* -webkit-text-stroke: 2px rgb(194, 190, 190); */
+    padding: 70px;
+    text-align: center;
+    font-size: 40px;
+    font-family: "Lucida Console", "Courier New", cursive;
+    text-transform: uppercase;
+    color:rgb(0, 0, 0);
+    border: 2px rgb(210, 200, 200) solid;
+    max-width: 60%;    
+    min-width: 500px;
+    text-shadow: -1px -1px 0 rgb(247, 241, 241), 1px -1px 0 rgb(247, 241, 241),
+    -1px 1px 0 rgb(247, 241, 241), 1px 1px 0 rgb(247, 241, 241);
+    }
+#mealOptions {
+    background-color: rgb(75, 75, 72);
+    border: solid;
+    border-color: #bababa;
+    padding: 50px;
+    box-shadow: 10 10px 10px 10 rgba(255, 255, 255, 0.2);
+    transition: 0.3s;
+    margin: 30px;
+    float: left;
+    text-align: center;
+    width: auto;
+    height: auto;
+    }
+#mealPlan{
+    background-color: rgb(75, 75, 72);
+    border: solid;
+    border-color: #bababa;
+    padding: 50px;
+    box-shadow: 10 10px 10px 10 rgba(255, 255, 255, 0.2);
+    transition: 0.3s;
+    margin: 30px;
+    float: right;
+    text-align: center;
+    width: auto;
+    height: auto;
+    }
+#create-task-form {
+    font-family: "Lucida Console", "Courier New", cursive;
+    text-transform: uppercase;
+    margin: auto;
+    padding: 50px;
+    text-shadow: -1px -1px 0 rgb(247, 241, 241), 1px -1px 0 rgb(247, 241, 241),
+    -1px 1px 0 rgb(247, 241, 241), 1px 1px 0 rgb(247, 241, 241);
+    }
+
+h2 {
+    font-family: "Lucida Console", "Courier New", cursive;
+    text-transform: uppercase;  
+    font-size: 30px;
+      text-shadow: -1px -1px 0 rgb(247, 241, 241), 1px -1px 0 rgb(247, 241, 241),
+      -1px 1px 0 rgb(247, 241, 241), 1px 1px 0 rgb(247, 241, 241);
+    }
+
+body {
+      background-color: rgb(97, 93, 93);
+      position:center
+    
+    }
+
+form input:hover {
+    background-color: rgba(194, 179, 179, 0.582);
+    }
+
+#submit {
+    font-family: "Lucida Console", "Courier New", monospace;
+    border: 2px rgb(194, 190, 190) solid;
+    color: rgb(8, 8, 8);
+  }
+
+#label, li{
+    font-weight: bold;
+    font-size: 20px;
+ }
+
+img {
+    height: 150px;
+    width: 150px;
+    padding-left: 20px; 
+  }
+
+a {
+padding-left: 20px;
+    padding-bottom: 20px;
+  }
+
+  li{
+    padding-left: 20px;
+ }
