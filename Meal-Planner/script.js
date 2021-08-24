@@ -23,7 +23,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 function createMeals(food) { 
+    
     const li = document.createElement('li')
+   
+    
     li.addEventListener("click", (e) => {
         const mealPlan = document.querySelector('#mealPlan')
         // const mealItem = document.getElementById('mealP')
@@ -48,7 +51,18 @@ function createMeals(food) {
     img.src = food.strMealThumb
     img.alt = 'Failed To Load'
     mealList.appendChild(li)
+    
     li.appendChild(img)
+    const btn = document.createElement('button')
+    btn.innerText = "Delete"
+    btn.addEventListener("click", () => {
+      li.remove()
+      li2.remove()
+    })
+    li.append(btn)
+
+
+    
 }
 
 
