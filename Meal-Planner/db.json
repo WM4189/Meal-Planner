@@ -1,10 +1,9 @@
 {
-  "Meal": [
+  "meal": [
     {
       "id": 1,
       "strMeal": " ",
-      "strSource": " ",
-      "strYoutube": " "
+      "strInstructions":" "
     }
   ]
 
