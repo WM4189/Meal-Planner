@@ -9,12 +9,12 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(res => res.json())
         .then(object => { 
             const mealArray = object.meals
-            console.log(mealArray)
+            // console.log(mealArray)
             mealArray.forEach(mealObject => createOptions(mealObject))
         })
         .catch(err => {
-        alert('Please Try A Different Food')
-        console.error('Invalid Meal Request')
+        alert('Invalid Input : Please Try A Different Food')
+        console.error('Input Error')
         })
         form.reset()
     }
@@ -22,7 +22,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function createOptions(food) { 
     const li = document.createElement('li')
-    li.addEventListener("dblclick", createPlan)  
+    li.id = 'li1'
+    li.addEventListener("dblclick", () => createPlan(food))  
     const mealList = document.getElementById('mealO') 
     const img = document.createElement('img')
     li.innerText = food.strMeal
@@ -48,19 +49,31 @@ function createOptions(food) {
     })
     li.append(deleteBtn)  
 
-function createPlan() {
+function createPlan(food) {
     const mealPlan = document.querySelector('#mealPlan')
     const li2 = document.createElement('li')
     li2.id = 'li2'
     li2.innerText = food.strMeal
     const strMeal = li2.innerText
     mealPlan.appendChild(li2)
+
     const p = document.createElement('p')
     p.innerText = food.strInstructions
     const strInstructions = p.innerText
-    const btn2 = document.createElement('button')
-    btn2.innerText = "Save to DB"
-    btn2.addEventListener('click',() => {
+
+    const removeBtn = document.createElement('button')
+    removeBtn.innerText = "Delete"
+    removeBtn.addEventListener('click', () =>{
+        deleteFood(food, li2)
+    })
+
+    const saveBtn = document.createElement('button')
+    saveBtn.innerText = "Save"
+    saveBtn.addEventListener('click',() => {
+        const allLi2 = document.querySelectorAll('#li2')
+        allLi2.forEach(li => li.remove())
+        
+
         const newFood = {
             strMeal,
             strInstructions 
@@ -72,24 +85,53 @@ function createPlan() {
             },
             body: JSON.stringify(newFood)
           }
+
+          
         
           fetch('http://localhost:3000/meal',configObj)
           .then(res => res.json())
-          .then(data => console.log(data))
+          .then(savedObj => {
+            if(savedObj.strMeal === food.strMeal){
+            li2.remove() + getFood(savedObj)
+            // console.log(savedObj)
+            }
+
+
+            })
+        
     })
+
     li2.appendChild(p)
-    p.appendChild(btn2)
+    p.appendChild(saveBtn)
+    p.appendChild(removeBtn)
 }
-// function resetButton(){
-//     const btn2 = document.createElement('button')
-//     const mealPlan = document.querySelector('#mealPlan')
-//     const li2 = document.querySelectorAll('li')[1]
-//     btn2.innerText = "Reset"
-//     btn2.addEventListener('click', () => {
-//         li2.remove()
-//     })
-//     mealPlan.append(btn2)
-// }
+
+
+function getFood(foodObj){
+    fetch ('http://localhost:3000/meal')
+    .then(res => res.json())
+    .then(dbFoodArr => {
+        console.log(dbFoodArr)
+        // if(foodObj.strMeal !== dbFoodArr[i].strMeal){
+            // const li2 = document.querySelector('#li2')
+            // li2.remove() + dbFoodArr.forEach(createPlan)
+            dbFoodArr.forEach(createPlan)
+        // }
+    })
+
+}
+
+function deleteFood (food, li2){
+    console.log(li2)
+    li2.remove()
+
+    fetch(`http://localhost:3000/meal/${food.id}`,{
+        method: 'DELETE'
+    })
+}
+
+
+
 }
 
 
