@@ -1,8 +1,6 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
-<!-- Bootstrap CSS -->
-<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous"> -->
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -18,9 +16,9 @@
     <input type="submit" id="submit" value="Create Meal Options">
   </form>
   <div id="mealOptions">
-     <button type="button" 
+    <button type="button" 
       id="clearAll" 
-      onclick="clearAll()">Clear All</button>
+      onclick=clearAll()>Clear All</button>
         <script>
           function clearAll(){
             const allLi1 = document.querySelectorAll('#li1')
@@ -30,30 +28,11 @@
     <h2>Meal Options</h2>
     <ul id="mealO">
     </ul>
-    </div>
+  </div>
   <div id="mealPlan">
-    <!-- <button type="button" 
-      id="remove" 
-      onclick="removeButton()">Remove Meal</button>
-        <script>
-          function removeButton(){
-            const li2 = document.getElementById('li2')
-            li2.remove()
-          }
-        </script> -->
     <h2>Meal Plan</h2>
     <ul id="mealP">
     </ul>
   </div>
-    <!-- Optional JavaScript; choose one of the two! -->
-
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script> -->
-
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!--
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
-    -->
 </body>
 </html>

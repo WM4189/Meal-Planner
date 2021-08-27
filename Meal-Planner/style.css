@@ -41,6 +41,7 @@ h1 {
   height: auto;
   }
 #create-task-form {
+ 
   font-family: "Lucida Console", "Courier New", cursive;
   text-transform: uppercase;
   margin: auto;
@@ -72,12 +73,18 @@ img {
   font-size: 20px;
   }
 a {
-  padding-right: 10px;
-  padding-bottom: 20px;
+  display: block;
+  }
+  p {
+    padding-left: 10px;
+    display: block;
+  }
+  #linkA {
+    padding-bottom: 20px;
   }
 body {
   background-color: rgb(97, 93, 93);
-  position:center
+  position:center;
   }
 form input:hover {
   background-color: rgba(194, 179, 179, 0.582);
@@ -88,5 +95,6 @@ button:hover{
 button {
   font-family: "Lucida Console", "Courier New", cursive;
   text-transform: uppercase;
+  background-color: rgb(176, 176, 176);
 }
 

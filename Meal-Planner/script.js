@@ -12,62 +12,60 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(res => res.json())
         .then(object => { 
             const mealArray = object.meals
-            mealArray.forEach(mealObject => createOptions(mealObject))
+            mealArray.forEach(createOptions)
         })
         .catch(err => {
         alert('Invalid Input : Please Try A Different Food')
         console.error('Input Error')
         })
         form.reset()
+        
+    }
+
+
+    function createOptions(food) { 
+        const li = document.createElement('li')
+        li.id = 'li1'
+        li.addEventListener("dblclick", () => createPlan(food))  
+        const mealList = document.getElementById('mealO') 
+        const img = document.createElement('img')
+        li.innerText = food.strMeal
+        img.src = food.strMealThumb
+        img.alt = 'Image Failed To Load'
+        mealList.appendChild(li)
+        li.appendChild(img)
+
+        const deleteBtn = document.createElement('button')
+        deleteBtn.innerText = "Delete"
+        deleteBtn.addEventListener("click", () => {
+            li.remove()
+        })
+        li.append(deleteBtn)
     }
 })
 
-function createOptions(food) { 
-    const li = document.createElement('li')
-    li.id = 'li1'
-    li.addEventListener("dblclick", () => createPlan(food))  
-    const mealList = document.getElementById('mealO') 
-    const img = document.createElement('img')
-    li.innerText = food.strMeal
-    img.src = food.strMealThumb
-    img.alt = 'Image Failed To Load'
-    mealList.appendChild(li)
-    li.appendChild(img)
-    // if (food.strSource !== "") {
-    //     const link = document.createElement('a')
-    //     link.innerText = 'Link to Recipe'
-    //     link.href = food.strSource
-    //     li.append(link)     
-    // } else if (food.strSource === "") {
-    //     const link = document.createElement('a')
-    //     link.innerText = 'Link to Instructional Video'
-    //     link.href = food.strYoutube
-    //     li.appendChild(link)   
-    // }
-   
-    const deleteBtn = document.createElement('button')
-    deleteBtn.innerText = "Delete"
-    deleteBtn.addEventListener("click", () => {
-        li.remove()
-    })
-    li.append(deleteBtn)
-    const hiddenBtn = document.querySelector('h2')
-    hiddenBtn.addEventListener('click',() => {
-        const allLi1 = document.querySelectorAll('#li1')
-        allLi1.forEach(li => li.remove())
-    })  
-}
 
 function createPlan(food) {
-    const mealPlan = document.querySelector('#mealPlan')
     const li2 = document.createElement('li')
     li2.id = 'li2'
     li2.innerText = food.strMeal
     const strMeal = li2.innerText
+    const mealPlan = document.querySelector('#mealPlan')
     mealPlan.appendChild(li2)
 
+    const linkA = document.createElement('a')
+    linkA.id = 'linkA'
+    linkA.innerText = 'Link to Recipe'
+    linkA.href = food.strSource
+    const strSource = linkA.href
+
+    const linkB = document.createElement('a')
+    linkB.innerText = 'Link to Instructional Video'
+    linkB.href = food.strYoutube
+    const strYoutube = linkB.href
+
     const p = document.createElement('p')
-    p.innerText = food.strInstructions
+    p.innerText = food.strInstructions  
     const strInstructions = p.innerText
 
     const removeBtn = document.createElement('button')
@@ -84,7 +82,9 @@ function createPlan(food) {
         
         const newFood = {
             strMeal,
-            strInstructions
+            strInstructions,
+            strYoutube, 
+            strSource
         }
 
         const configObj = {
@@ -99,10 +99,9 @@ function createPlan(food) {
         .then(res => res.json())
         .then(savedObj => {
             if(savedObj.strMeal === food.strMeal){
-            li2.remove() + getFood(savedObj)
+            li2.remove() + getFood()
             }
         })
-        
     }
 
     const checkBox = document.createElement("input")
@@ -114,9 +113,11 @@ function createPlan(food) {
     checkBox.addEventListener("click", () => updateCompleted(food));
 
     li2.appendChild(p)
-    p.appendChild(saveBtn)
-    p.appendChild(removeBtn)
-    p.appendChild(checkBox)
+    p.append(saveBtn)
+    p.append(removeBtn)
+    p.append(checkBox)
+    p.append(linkB)
+    p.append(linkA)
 }
 
 function updateCompleted(food) {
@@ -131,14 +132,6 @@ function updateCompleted(food) {
   fetch(`${BASE_URL}/${food.id}`,config)
 }
 
-
-function getFood(foodObj){
-    fetch (BASE_URL)
-    .then(res => res.json())
-    .then(dbFoodArr => dbFoodArr.forEach(createPlan))   
-}
-getFood()
-
 function deleteFood (food, li2){
     li2.remove()
     fetch(`${BASE_URL}/${food.id}`,{
@@ -146,7 +139,12 @@ function deleteFood (food, li2){
     })
 }
 
-
+function getFood(){
+    fetch (BASE_URL)
+    .then(res => res.json())
+    .then(dbFoodArr => dbFoodArr.forEach(createPlan))   
+}
+getFood()
 
 
 
