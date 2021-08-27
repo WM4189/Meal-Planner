@@ -1,15 +1,17 @@
+const BASE_URL = 'http://localhost:3000/meal'
+const API_URL = 'https://www.themealdb.com/api/json/v1/1/search.php?s'
+
 document.addEventListener("DOMContentLoaded", () => {
-    const input = document.querySelector('#new_task_description')
     const form = document.querySelector('form')
     form.addEventListener('submit', fetchFood)
 
     function fetchFood(e){
         e.preventDefault()
-        fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${input.value}`)
+        const input = document.querySelector('#new_task_description').value
+        fetch(`${API_URL}=${input}`)
         .then(res => res.json())
         .then(object => { 
             const mealArray = object.meals
-            // console.log(mealArray)
             mealArray.forEach(mealObject => createOptions(mealObject))
         })
         .catch(err => {
@@ -31,23 +33,30 @@ function createOptions(food) {
     img.alt = 'Image Failed To Load'
     mealList.appendChild(li)
     li.appendChild(img)
-    if (food.strSource !== "") {
-        const link = document.createElement('a')
-        link.innerText = 'Link to Recipe'
-        link.href = food.strSource
-        li.append(link)     
-    } else if (food.strSource === "") {
-        const link = document.createElement('a')
-        link.innerText = 'Link to Instructional Video'
-        link.href = food.strYoutube
-        li.appendChild(link)   
-    }
+    // if (food.strSource !== "") {
+    //     const link = document.createElement('a')
+    //     link.innerText = 'Link to Recipe'
+    //     link.href = food.strSource
+    //     li.append(link)     
+    // } else if (food.strSource === "") {
+    //     const link = document.createElement('a')
+    //     link.innerText = 'Link to Instructional Video'
+    //     link.href = food.strYoutube
+    //     li.appendChild(link)   
+    // }
+   
     const deleteBtn = document.createElement('button')
     deleteBtn.innerText = "Delete"
     deleteBtn.addEventListener("click", () => {
         li.remove()
     })
-    li.append(deleteBtn)  
+    li.append(deleteBtn)
+    const hiddenBtn = document.querySelector('h2')
+    hiddenBtn.addEventListener('click',() => {
+        const allLi1 = document.querySelectorAll('#li1')
+        allLi1.forEach(li => li.remove())
+    })  
+}
 
 function createPlan(food) {
     const mealPlan = document.querySelector('#mealPlan')
@@ -63,76 +72,83 @@ function createPlan(food) {
 
     const removeBtn = document.createElement('button')
     removeBtn.innerText = "Delete"
-    removeBtn.addEventListener('click', () =>{
-        deleteFood(food, li2)
-    })
+    removeBtn.addEventListener('click', () => deleteFood(food, li2))
 
     const saveBtn = document.createElement('button')
     saveBtn.innerText = "Save"
-    saveBtn.addEventListener('click',() => {
+    saveBtn.addEventListener('click', postFood) 
+
+    function postFood() {
         const allLi2 = document.querySelectorAll('#li2')
         allLi2.forEach(li => li.remove())
         
-
         const newFood = {
             strMeal,
-            strInstructions 
+            strInstructions
         }
+
         const configObj = {
             method: "POST",
                 headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(newFood)
-          }
+        }
 
-          
-        
-          fetch('http://localhost:3000/meal',configObj)
-          .then(res => res.json())
-          .then(savedObj => {
+        fetch(BASE_URL,configObj)
+        .then(res => res.json())
+        .then(savedObj => {
             if(savedObj.strMeal === food.strMeal){
             li2.remove() + getFood(savedObj)
-            // console.log(savedObj)
             }
-
-
-            })
+        })
         
-    })
+    }
+
+    const checkBox = document.createElement("input")
+    checkBox.setAttribute("type", "checkbox")
+    
+    if (food.completed) {
+    checkBox.checked = true
+    }
+    checkBox.addEventListener("click", () => updateCompleted(food));
 
     li2.appendChild(p)
     p.appendChild(saveBtn)
     p.appendChild(removeBtn)
+    p.appendChild(checkBox)
+}
+
+function updateCompleted(food) {
+  let completed = (food.completed = !food.completed)
+  const config = {
+    method: 'PATCH',
+    headers: {
+      "Content-Type": "application/json"
+    },
+  body: JSON.stringify({completed})
+}
+  fetch(`${BASE_URL}/${food.id}`,config)
 }
 
 
 function getFood(foodObj){
-    fetch ('http://localhost:3000/meal')
+    fetch (BASE_URL)
     .then(res => res.json())
-    .then(dbFoodArr => {
-        console.log(dbFoodArr)
-        // if(foodObj.strMeal !== dbFoodArr[i].strMeal){
-            // const li2 = document.querySelector('#li2')
-            // li2.remove() + dbFoodArr.forEach(createPlan)
-            dbFoodArr.forEach(createPlan)
-        // }
-    })
-
+    .then(dbFoodArr => dbFoodArr.forEach(createPlan))   
 }
+getFood()
 
 function deleteFood (food, li2){
-    console.log(li2)
     li2.remove()
-
-    fetch(`http://localhost:3000/meal/${food.id}`,{
+    fetch(`${BASE_URL}/${food.id}`,{
         method: 'DELETE'
     })
 }
 
 
 
-}
+
 
 
 
